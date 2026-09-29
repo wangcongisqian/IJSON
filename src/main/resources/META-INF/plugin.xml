@@ -1,0 +1,82 @@
+<idea-plugin>
+    <id>com.ijson.IJSON</id>
+    <name>IJSON</name>
+    <version>1.0.0</version>
+    <vendor email="support@ijson.com" url="https://github.com/ijson">IJSON Team</vendor>
+
+    <description><![CDATA[
+        <h2>IJSON - IntelliJ IDEA JSON 操作插件</h2>
+        <p>功能强大的 JSON 处理插件，支持：</p>
+        <ul>
+            <li><b>校验 JSON</b>：验证选中文本、剪贴板或当前文件是否为合法 JSON</li>
+            <li><b>美化 JSON</b>：格式化 JSON，并以可交互的树形结构展示。支持节点收缩/展开、增加节点、删除节点，实时编辑后导出</li>
+            <li><b>新建 JSON</b>：任意生成 JSON 字符串，也支持根据输入内容（如 key=value、描述文本）智能生成 JSON</li>
+        </ul>
+        <p>使用方式：在编辑器中选中 JSON 文本后，通过右键菜单或 Tools → IJSON 菜单使用功能。</p>
+    ]]></description>
+
+    <change-notes><![CDATA[
+        <h3>1.0.0</h3>
+        <ul>
+            <li>支持 JSON 校验</li>
+            <li>支持 JSON 美化与交互式树编辑（收缩/展开、增删节点）</li>
+            <li>支持新建与智能生成 JSON</li>
+        </ul>
+    ]]></change-notes>
+
+    <!-- Compatible with IntelliJ IDEA 2024.3+ -->
+    <idea-version since-build="243" until-build="253.*"/>
+
+    <depends>com.intellij.modules.platform</depends>
+
+    <extensions defaultExtensionNs="com.intellij">
+        <!-- Tool Window for interactive JSON tree editing -->
+        <toolWindow id="IJSON"
+                    anchor="right"
+                    icon="AllIcons.FileTypes.Any_type"
+                    factoryClass="com.ijson.plugin.ui.JsonToolWindowFactory"/>
+    </extensions>
+
+    <actions>
+        <!-- Main menu group under Tools -->
+        <group id="IJSON.Menu" text="IJSON" description="JSON 操作工具" popup="false">
+            <add-to-group group-id="ToolsMenu" anchor="last"/>
+
+            <action id="IJSON.ValidateJson"
+                    class="com.ijson.plugin.actions.ValidateJsonAction"
+                    text="校验 JSON"
+                    description="验证选中文本或文件是否为合法 JSON">
+                <keyboard-shortcut keymap="$default" first-keystroke="ctrl alt J" second-keystroke="V"/>
+            </action>
+
+            <action id="IJSON.BeautifyJson"
+                    class="com.ijson.plugin.actions.BeautifyJsonAction"
+                    text="美化 JSON（树形编辑）"
+                    description="格式化 JSON 并以可交互树展示，支持增删节点">
+                <keyboard-shortcut keymap="$default" first-keystroke="ctrl alt J" second-keystroke="B"/>
+            </action>
+
+            <action id="IJSON.NewJson"
+                    class="com.ijson.plugin.actions.NewJsonAction"
+                    text="新建 / 生成 JSON"
+                    description="任意生成 JSON 或根据输入内容生成">
+                <keyboard-shortcut keymap="$default" first-keystroke="ctrl alt J" second-keystroke="N"/>
+            </action>
+
+            <separator/>
+
+            <action id="IJSON.OpenToolWindow"
+                    class="com.ijson.plugin.actions.OpenJsonToolWindowAction"
+                    text="打开 IJSON 工具窗口"
+                    description="打开交互式 JSON 树编辑工具窗口"/>
+        </group>
+
+        <!-- Editor context menu -->
+        <group id="IJSON.EditorPopup" text="IJSON" popup="true">
+            <add-to-group group-id="EditorPopupMenu" anchor="last"/>
+            <reference ref="IJSON.ValidateJson"/>
+            <reference ref="IJSON.BeautifyJson"/>
+            <reference ref="IJSON.NewJson"/>
+        </group>
+    </actions>
+</idea-plugin>
