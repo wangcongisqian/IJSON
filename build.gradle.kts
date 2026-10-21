@@ -38,24 +38,27 @@ intellijPlatform {
 
         vendor {
             name = "IJSON Team"
-            email = "support@ijson.com"
+            email = "alen.mark.wang@gmail.com"
+            url = "https://github.com/wangcongisqian/IJSON"
         }
 
         description = """
-            IJSON - IntelliJ IDEA JSON 操作插件
-            
-            功能特性:
-            1. 校验 JSON - 验证选中文本或文件是否为合法 JSON
-            2. 美化 JSON - 格式化 JSON，并以可交互树形结构展示，支持节点收缩/展开、增加/删除节点
-            3. 新建 JSON - 任意生成 JSON 字符串，或根据输入内容智能生成 JSON
+            <h2>IntelliJ IDEA JSON</h2>
+            <p>A powerful JSON processing plugin with support for:</p>
+            <ul>
+                <li><b>JSON validation</b>: Validate selected text or the current file</li>
+                <li><b>JSON formatting</b>: Format JSON and explore it in an interactive tree with collapsible nodes and support for adding, deleting, and editing values</li>
+                <li><b>JSON creation</b>: Generate JSON from templates or input such as key-value pairs and descriptive text</li>
+            </ul>
+            <p>Use the editor context menu or the Tools → IJSON menu to access these features.</p>
         """.trimIndent()
 
         changeNotes = """
             <h3>1.0.0</h3>
             <ul>
-                <li>支持 JSON 校验</li>
-                <li>支持 JSON 美化与交互式树编辑（收缩/展开、增删节点）</li>
-                <li>支持新建与智能生成 JSON</li>
+                <li>Validate selected text or the current file</li>
+                <li>Format JSON and explore it in an interactive tree with collapsible nodes and support for adding, deleting, and editing values</li>
+                <li>Generate JSON from templates or input such as key-value pairs and descriptive text</li>
             </ul>
         """.trimIndent()
     }
@@ -66,6 +69,12 @@ intellijPlatform {
 
     publishing {
         // Optional
+    }
+
+    pluginVerification {
+        ides {
+            ide("IC", providers.gradleProperty("platformVersion").get())
+        }
     }
 }
 
